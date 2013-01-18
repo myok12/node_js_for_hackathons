@@ -1,0 +1,21 @@
+{
+  "author": "Ohad Kravchick <myok12@yahoo.com>",
+  "name": "examples",
+  "description": "Desc",
+  "version": "0.0.0",
+  "repository": {
+    "url": "git"
+  },
+  "dependencies": {
+    "express": "~3.0.6",
+    "request": "~2.12.0",
+    "mysql": "~2.0.0-alpha5",
+    "shred": "~0.8.8",
+    "socket.io": "~0.9.13"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}

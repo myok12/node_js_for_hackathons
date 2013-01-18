@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://studio.html5rocks.com/samples/slides/index.html#slide1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+    <title>node.js presentation</title>
+    <link href="./Presentation_files/css" rel="stylesheet" type="text/css">
+    <style>
+      body {
+        font: 20px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0px; top: 0px;
+      }
+     
+      .presentation {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0px;
+        top: 0px;
+        display: block;
+        overflow: hidden;
+        background: #778;
+      }
+     
+      .slides {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        display: block;
+        -webkit-transition: -webkit-transform 1s ease-in-out;
+        -moz-transition: -moz-transform 1s ease-in-out;
+        -o-transition: -o-transform 1s ease-in-out;
+        transition: transform 1s ease-in-out;
+       
+        /* so it's visible in the iframe. */
+        -webkit-transform: scale(0.8);
+        -moz-transform: scale(0.8);
+        -o-transform: scale(0.8);
+        transform: scale(0.8);
+       
+      }
+     
+      .slide {
+        display: none;
+        position: absolute;
+        overflow: hidden;
+        width: 1300px /*size900px*/;
+        height: 900px /*size700px*/;
+        left: 50%;
+        top: 50%;
+        margin-top: -450px /*size-350px*/;
+        background-color: #eee;
+        background: -webkit-gradient(linear, left bottom, left top, from(#bbd), to(#fff));
+        background: -moz-linear-gradient(bottom, #bbd, #fff);
+        background: linear-gradient(bottom, #bbd, #fff);
+        -webkit-transition: all 0.25s ease-in-out;
+        -moz-transition: all 0.25s ease-in-out;
+        -o-transition: all 0.25s ease-in-out;
+        transition: all 0.25s ease-in-out;
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+      }
+     
+      .slide:nth-child(even) {
+        -moz-border-radius: 20px 0;
+        -khtml-border-radius: 20px 0;
+        border-radius: 20px 0; /* includes Opera 10.5+ */
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+      }
+     
+      .slide:nth-child(odd) {
+        -moz-border-radius: 0 20px;
+        -khtml-border-radius: 0 20px;
+        border-radius: 0 20px;
+        -webkit-border-top-right-radius: 20px;
+        -webkit-border-bottom-left-radius: 20px;
+      }
+
+      .slide p, .slide textarea {
+        font-size: 120%;
+      }
+
+      .slide .counter {
+        color: #999999;
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        display: block;
+        font-size: 70%;
+      }
+
+      .slide.title > .counter,
+      .slide.segue > .counter,
+      .slide.mainTitle > .counter {
+        display: none;
+      }
+
+      .force-render {
+        display: block;
+        visibility: hidden;
+      }
+     
+      .slide.far-past {
+        display: block;
+        margin-left: -3000px/*size-2400px*/;
+      }
+     
+      .slide.past {
+        visibility: visible;
+        display: block;
+        margin-left: -2000px/*size-1400px*/;
+      }
+     
+      .slide.current {
+        visibility: visible;
+        display: block;
+        margin-left: -650px/*size-450px*/;
+      }
+     
+      .slide.future {
+        visibility: visible;
+        display: block;
+        margin-left: 700px/*size500px*/;
+      }
+     
+      .slide.far-future {
+        display: block;
+        margin-left: 1900px/*size1500px*/;
+      }
+     
+      body.three-d div.slides {
+        -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
+        -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
+        -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
+        transform: translateX(50px) scale(0.8) rotateY(10deg);
+      }
+     
+      /* Content */
+     
+      @font-face { font-family: 'Junction'; src: url(src/Junction02.otf); }
+      @font-face { font-family: 'LeagueGothic'; src: url(src/LeagueGothic.otf); }
+     
+      header {
+        font-family: 'Droid Sans';
+        font-weight: normal;
+        letter-spacing: -.05em;
+        text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+        left: 30px;
+        top: 25px;
+        margin: 0;
+        padding: 0;
+        font-size: 140%;
+      }
+     
+      h1 {
+        font-size: 140%;
+        display: block;
+        font-weight: normal;
+        text-align:center;
+        padding: 0;
+        margin: 0;
+      }
+     
+      h2 {
+        font-family: 'Droid Sans';
+        color: black;
+        font-size: 120%;
+        padding: 0;
+        margin: 20px 0;
+      }
+           
+      h2:first-child {
+        margin-top: 0;
+      }
+
+      section, footer {
+        font-family: 'Droid Sans';
+        color: #3f3f3f;
+        text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+        margin: 30px 30px 0;
+        display: block;
+        overflow: hidden;
+      }
+     
+      footer {
+        font-size: 100%;
+        margin: 20px 0 0 30px;
+      }
+
+      a {
+        color: inherit;
+        display: inline-block;
+        text-decoration: none;
+        line-height: 110%;
+        border-bottom: 2px solid #3f3f3f;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      button {
+        font-size: 100%;
+      }
+     
+      pre button {
+        margin: 2px;
+      }
+     
+      section.left {
+        float: left;
+        width: 390px;
+      }
+     
+      section.small {
+        font-size: 24px;
+      }
+     
+      section.small ul {
+        margin: 0 0 0 15px;
+        padding: 0;
+      }
+     
+      section.small li {
+        padding-bottom: 0;
+      }
+           
+      section.middle {
+        line-height: 2em;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        height: 900px/*size700px*/;
+        width: 1300px/*size900px*/;
+      }
+     
+      pre {
+        text-align: left;
+        font-family: 'Droid Sans Mono', Courier;
+      }
+     
+      pre select {
+        font-family: Monaco, Courier;
+        border: 1px solid #c61800;
+      }
+       
+      input {
+        font-size: 100%;
+        margin-right: 10px;
+        font-family: Helvetica;
+        padding: 3px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+     
+      button {
+        margin: 20px 10px 0 0;
+        font-family: Verdana;
+      }
+     
+      button.large {
+        font-size: 32px;
+      }
+       
+      pre b {
+        font-weight: normal;
+        color: #c61800;
+        text-shadow: #c61800 0 0 1px;
+        /*letter-spacing: -1px;*/
+      }
+      pre em {
+        font-weight: normal;
+        font-style: normal;
+        color: #18a600;
+        text-shadow: #18a600 0 0 1px;
+      }
+      pre input[type="range"] {
+        height: 6px;
+        cursor: pointer;
+        width: auto;
+      }
+     
+      div.example {
+        display: block;
+        padding: 10px 20px;
+        color: black;
+        background: rgba(255, 255, 255, 0.4);
+        -webkit-border-radius: 8px;
+        -khtml-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+     
+      video {
+        -moz-border-radius: 8px;
+        -khtml-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+     
+      .key {
+        font-family: 'Droid Sans';
+        color: black;
+        display: inline-block;
+        padding: 6px 10px 3px 10px;
+        font-size: 100%;
+        line-height: 30px;
+        text-shadow: none;
+        letter-spacing: 0;
+        bottom: 10px;
+        position: relative;
+        -moz-border-radius: 10px;
+        -khtml-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: white;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+        -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+        -o-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+      }
+     
+      .key { font-family: Arial; }
+     
+      :not(header) > .key {
+        margin: 0 5px;
+        bottom: 4px;
+      }
+
+      .two-column {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+      }
+
+      .stroke {
+        -webkit-text-stroke-color: red;
+        -webkit-text-stroke-width: 1px;
+      } /* currently webkit-only */
+     
+      .center {
+        text-align: center;
+      }
+     
+      #presentation-counter {
+        color: #ccc;
+        font-size: 70%;
+        letter-spacing: 1px;
+        position: absolute;
+        top: 40%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+      }
+     
+      div:not(.current).reduced {
+        -webkit-transform: scale(0.8);
+        -moz-transform: scale(0.8);
+        -o-transform: scale(0.8);
+        transform: scale(0.8);
+      }
+     
+      .no-transitions {
+        -webkit-transition: none;
+        -moz-transition: none;
+        -o-transition: none;
+        transition: none;
+      }
+
+      .no-gradients {
+        background: none;
+        background-color: #fff;
+      }
+     
+      ul.bulleted {
+        padding-left: 30px;
+      }
+
+      /**************** my *******************/
+
+      .slide .middle iframe {
+        background-color:white;
+        border:0;
+        height:90%;
+        width:90%
+      }
+     
+      #helpers {
+          position:absolute;
+          bottom:0;
+          left:50%;
+          width: 270;
+          margin-left: -135px;
+          z-index:10000;
+          background-color: #eee;
+          border-radius: 3px;
+          padding: 2px;
+      }
+
+      #helpers button {
+          font-size: 16px;
+         margin: 2px;
+      }
+      #helpers button.active {
+          background-color:#0000FF;
+      }
+
+    .clock {
+        position: absolute;
+        z-index: 9999;
+        top:40px;
+        left:130px;
+        font-size:12px;
+        color:darkgray;
+    }
+
+
+    </style>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        //TODO: change 192.168.2.2 to my address
+        // in case there's a js error below, code will not break
+        var slideChanged = function() { };
+        var socket = io.connect(document.location.origin);
+        var isControlled = false;
+        var isManager = false;
+
+        slideChanged = function(index) {
+            socket.emit('slideChanged', {slideIndex: index});
+        }
+
+        var setUpIo = function() {
+            var navControl = document.getElementById('nav-control');
+
+            navControl.addEventListener('click', function() {
+                if (!isManager) {
+                    var password = window.prompt('Enter password to take control of the presentation');
+                    socket.emit('manager', {password: password});
+                } else {
+                    //isManager = false;
+                    //drawManager();
+                    //isControlled = true;
+                    //drawControlled();
+                }
+            }, false);
+
+            var navControlled = document.getElementById('nav-controlled');
+            navControlled.addEventListener('click', function() {
+                if (!isManager) {
+                    isControlled = !isControlled;
+                    drawControlled();
+                    // becoming controlled, resuming last slide
+
+                    if (isControlled) {
+                        socket.emit('whatSlide');
+                    }
+                }
+            }, false);
+
+            socket.on('connect', function() {
+                isControlled = true;
+                drawControlled();
+
+
+                socket.on('becameManager', function (data) {
+                    isManager = true;
+                    drawManager();
+                    isControlled = false;
+                    drawControlled();
+                });
+
+                socket.on('resignManager', function (data) {
+                    alert('There\'s a coup');
+                    isManager = false;
+                    drawManager();
+                    isControlled = true;
+                    drawControlled();
+                });
+
+
+                socket.on('moveToSlide', function (data) {
+                    if (isControlled) {
+                        window.slideshow.current = Math.min(data.slideIndex, slideshow._slides.length);
+                        window.slideshow._update();
+                    }
+                });
+            });
+        }
+
+
+        function drawManager() {
+            var navControl = document.getElementById('nav-control');
+            if (isManager) {
+                navControl.classList.add('active');
+            } else {
+                navControl.classList.remove('active');
+            }
+        };
+
+        function drawControlled() {
+            var controlled = document.getElementById('nav-controlled');
+            if (isControlled) {
+                controlled.classList.add('active');
+                controlled.innerText = 'Following';
+            } else {
+                controlled.classList.remove('active');
+                controlled.innerText = 'Follow';
+
+            }
+        };
+
+        window.setTimeout(function() {
+            setUpIo();
+            drawManager();
+            drawControlled();
+        }, 0);
+
+    </script>
+
+  </head>
+  <body>
+
+    <nav id="helpers">
+      <button title="Previous slide" id="nav-prev" class="nav-prev">⇽</button> 
+      <button title="Jump to a random slide" id="slide-no">1</button> 
+      <button title="Next slide" id="nav-next" class="nav-next">⇾</button>
+      <button title="Take control" id="nav-control" class="nav-control">^</button>
+      <button title="Follow the leader" id="nav-controlled" class="nav-controlled"></button>
+    </nav>
+
+
+    <div class="presentation">
+    <div class="clock"></div>
+    <script type="text/javascript">
+        var twoDigits = function(val) {
+            val = "" + val;
+            while (val.length<2) {
+                val = "0" + val;
+            }
+            return val;
+        }
+        window.setInterval(function() {
+            var now = new Date();
+            document.querySelector('.clock').innerText = now.getHours() + ':' + twoDigits(now.getMinutes()) + ':' + twoDigits(now.getSeconds());
+            }, 1000);
+    </script>
+
+      <div id="presentation-counter">1</div>
+      <div class="slides">
+
+        <div class="slide styling" id="welcome">
+            <style>
+                #welcome h1 {
+                    font-size: 3.8em;
+                    line-height: 1.4em;
+                }
+                #welcome h2 {
+                    margin-top: 300px;
+                    font-size: 2em;
+                    margin-bottom: 80px;
+                }
+                #welcome ul li {
+                    text-align:center;
+                    font-size: 1.7em;
+                }
+                #welcome ul li.same-line {
+                    display: inline-block;
+                }
+                #welcome ul li.same-line>* {
+                    display:inline-block;
+                    vertical-align: bottom;
+                }
+                #welcome ul li img{
+                    margin-right: 20px;
+                }
+            </style>
+          <section class="middle">
+            <h1>
+                <img src="images/nodejs.png"><br>
+            </h1>
+            <h2>
+                Ohad Kravchick<br>
+            </h2>
+            <ul>
+                <li class="same-line" style="text-align: center; padding-bottom:60px;"><a href="http://slidesha.re/RQ0j8K">http://slidesha.re/RQ0j8K</a></li>
+                <li class="same-line" style="margin-left:150px;margin-right:100px;text-align: center; padding-bottom:60px;"><img style="padding-right:10px; width:50px;" src="images/zip.png"><a href="http://bit.ly/RQ011E">http://bit.ly/RQ011E</a></li>
+            </ul>
+            <ul>
+                <li class="same-line" style="margin-right: 200px;"><div style="height:60px; width:60px; background-image: url('images/twitter.png'); background-size: 60px 60px; background-position: 0 10px; margin-right: 7px;"></div><a href="https://twitter.com/myok12">@myok12</a></li>
+                <li class="same-line"><div style="height:60px; width:60px; background-image: url('images/speaker.png'); background-size: 60px 60px; background-position: 0 10px; margin-right: 15px;"></div><a href="http://spkr8.com/myok12">http://spkr8.com/myok12</a></li>
+            </ul>
+          </section>
+        </div>
+
+
+        <div class="slide styling" id="serverside">
+            <style>
+                #serverside h1 {
+                    font-size:2.0em;
+                }
+                #serverside .topul {
+                    font-size: 1.6em;
+                    line-height: 2.2em;
+                }
+                #serverside ul {
+                    padding-top:10px;
+                    display: block;
+                    padding-left:100px;
+                }
+                #serverside li {
+                    text-align:left;
+                }
+                #serverside .middle>ul {
+                    margin-bottom:200px;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                Communications
+            </h1>
+          </section>
+          <section class="middle">
+                <ul class="topul">
+                    <li>
+                        Listening on port [80] and accepting connections as <u>server</u>
+                    </li>
+                    <li>
+                        Upon new connection from <u>client</u>:
+                        <ul>
+                            <li>
+                                <u>client</u> sends a <u>request</u> to the server, for a specific URL
+                            </li>
+                            <li>
+                            based on the <u>client</u>'s <u>request</u>, the <u>server</u> can do:
+                            </li>
+                            <ul>
+                                <li>
+                                    Do nothing. The client will wait and eventually give up.
+                                </li>
+                                <li>
+                                    Send a Redirect <u>response</u> (status code 301 or 302) to a different URL.
+                                </li>
+                                <li>
+                                    Send a <u>response</u> to indicate an error (404, 500, etc.).
+                                </li>
+                                <li>
+                                    Send a successful <u>response</u> (200) along with data.<br>
+                                    data can be any file. client may or may not know what to with it.<br>
+                                    If data is HTML (text/html) then client will render it.
+                                </li>
+                            </ul>
+                        </ul>
+                    </li>
+                </ul>
+          </section>
+        </div>
+
+
+        <div class="slide styling" id="node1">
+            <style>
+                #node1 h1 {
+                    font-size:2.0em;
+                }
+                #node1 section.middle {
+                    text-align: left;
+                }
+                #node1 .topul {
+                    font-size: 1.5em;
+                    line-height: 1.7em;
+                }
+                #node1 ul {
+                    padding-top:10px;
+                    display: block;
+                    padding-left:100px;
+                }
+                #node1 li {
+                    text-align:left;
+                    display:block;
+                    margin-left: 100px;
+                }
+                #node1 .long-list li:nth-child(even) {
+                    float: right;
+                    padding-right: 100px;
+                }
+                #node1 .middle>ul {
+                    margin-bottom:200px;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                Node.js
+            </h1>
+          </section>
+          <section class="middle">
+                <ul class="topul">
+                    <li>
+                    Go to <a href="http://nodejs.org/">http://nodejs.org/</a> and install.
+                    </li>
+                    <li>
+                    Read <a href="http://nodejs.org/api/">API docs</a> (http://nodejs.org/api/).<br>
+                    </li>
+                    <li>
+                    Can do:
+                        <ul class="long-list">
+                            <li>
+                            File System
+                            </li>
+                            <li>
+                            Make TCP requests
+                            </li>
+                            <li>
+                            Accept TCP connections
+                            </li>
+                            <li>
+                            Make HTTP requests
+                            </li>
+                            <li>
+                            Accept HTTP connections
+                            </li>
+                            <li>
+                            Send UDP datagrams
+                            </li>
+                            <li>
+                            Accept UDP datagrams
+                            </li>
+                            <li>
+                            DNS
+                            </li>
+                            <li>
+                            HTTPS
+                            </li>
+                            <li>
+                            Spawn processes
+                            </li>
+                            <li>
+                            Low-level communication
+                            </li>
+                            <li>
+                            Low-level C++
+                            </li>
+                            <li>
+                            Crypto
+                            </li>
+                            <li>
+                            Compression
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                    Supports:
+                        <ul class="long-list">
+                            <li>
+                                Interactive code - REPL
+                            </li>
+                            <li>
+                                Command-line arguments
+                            </li>
+                            <li>
+                                Modules
+                            </li>
+                            <li>
+                                Debugging (CLI &amp; web)
+                            </li>
+                            <li>
+                                Environment variables
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+          </section>
+        </div>
+
+
+        <div class="slide styling" id="firstnodeapp">
+            <style>
+                #firstnodeapp h1 {
+                    font-size: 2.0em;
+                }
+                #firstnodeapp .middle>* {
+                    margin-bottom:200px;
+                }
+                #firstnodeapp .left{
+                    margin-left: 200px;
+                    text-align: left;
+                }
+                #firstnodeapp code{
+                    display:block;
+                    padding-left: 50px;
+                }
+                #firstnodeapp .middle{
+                    font-size:1.3em;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                First App
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+                <u>server.js:</u><br>
+                <code>
+                    var http = require('http');
+                    <br>
+
+                    <br>
+    http.createServer(function (request, response) {
+                    <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;response.writeHead(200, {'Content-Type': 'text/plain'});
+                    <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;response.end('Hello World\n');
+                    <br>
+    }).listen(8124);
+                    <br>
+
+                    <br>
+    console.log('Server running at http://127.0.0.1:8124/');
+                </code>
+                <br><br>
+                Then:<br>
+                <code>
+                    &gt; node server.js
+                    <br>
+                    Server running at http://127.0.0.1:8124/
+                </code>
+            </div>
+          </section>
+        </div>
+
+
+
+        <div class="slide styling" id="firstnodeapp2">
+            <style>
+                #firstnodeapp2 h1 {
+                    font-size: 2.0em;
+                }
+                #firstnodeapp2 .middle>* {
+                    margin-bottom:300px;
+                }
+                #firstnodeapp2 .left{
+                    margin-top:80px;
+                    margin-left: 200px;
+                    text-align: left;
+                    font-size: 1.8em;
+                    line-height: 2.5em;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                First App - Cont'd
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+                <ul>
+                    <li>
+                    Sending formatted HTML
+                    </li>
+                    <li>
+                    Examining the <a href="http://nodejs.org/api/http.html#http_class_http_serverrequest">request</a> object
+                    </li>
+                    <li>
+                    Examining the <a href="http://nodejs.org/api/http.html#http_class_http_serverresponse">response</a> object
+                    </li>
+                    <li>
+                    Debugging using <a href="https://github.com/dannycoates/node-inspector">node-inspector</a>
+                    </li>
+                    <li>
+                    More: different HTTP methods, status codes, URL, headers, encoding, etc.
+                    </li>
+                    <li>
+                    And, even easier, using modules ...
+                    </li>
+            </div>
+          </section>
+        </div>
+
+
+
+
+        <div class="slide styling" id="npm" data-build>
+            <style>
+                #npm h1 {
+                    font-size: 2.0em;
+                }
+                #npm .middle>* {
+                    margin-bottom:300px;
+                }
+                #npm .left{
+                    margin-top:40px;
+                    margin-left: 200px;
+                    text-align: left;
+                    font-size: 1.7em;
+                    line-height: 1.8em;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                Modules
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+                <ul>
+                    <li>
+                        npm - node package manager
+                    </li>
+                    <li>
+                        npm is [now] part of node.js
+                    </li>
+                    <li>
+                        when you need some module, do npm install &lt;module&gt;
+                        <ol>
+                            <li>
+                            grabs them from npmjs.org
+                            </li>
+                            <li>
+                            puts them in node_modules
+                            </li>
+                            <li>
+                            allows you to use require('module')
+                            </li>
+                            <li>
+                            read the doc of &lt;module&gt; to learn how to use it correctly 
+                            </li>
+                            <li>
+                            can be done recursively
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        you can search <a href="http://www.npmjs.org">yourself</a>
+                    </li>
+                    <li>
+                        more: read 'npm help'
+                    </li>
+                    <li>
+                        package.json
+                    </li>
+                    <li>
+                        popular modules: <a href="http://www.nodecloud.org/">NodeCloud</a>, Github???
+                    </li>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide styling" id="expressapp">
+            <style>
+                #expressapp h1 {
+                    font-size: 2.5em;
+                }
+                #expressapp .middle>* {
+                    margin-bottom:300px;
+                }
+                #expressapp .left{
+                    margin-left: 200px;
+                    text-align: left;
+                    font-size: 1.9em;
+                    line-height: 2.2em;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                <a href="http://expressjs.com">express</a>
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+                <ul>
+                    <li>
+                    <a href="http://expressjs.com/guide.html">Grabbing it</a><br>
+                    &nbsp;&nbsp;Installing modules locally (npm install, npm ls, package.json) 
+                    </li>
+                    <li>
+                    Learning the API at: <a href="http://expressjs.com/api.html">http://expressjs.com/api.html</a>
+                    </li>
+                    <li>
+                    <a href="http://expressjs.com/api.html#app.VERB">Routing</a>, <a href="http://expressjs.com/api.html#app.param">Route params</a>
+                    </li>
+                    <li>
+                    <a href="http://expressjs.com/api.html#app.engine">Choosing template engine</a> and <a href="http://expressjs.com/api.html#app.render">rendering dynamic pages</a>
+                    </li>
+                    <li>
+                    <a href="http://www.senchalabs.org/connect/">Middleware</a> for: <a href="http://expressjs.com/api.html#req.query">Get</a>/<a href="http://expressjs.com/api.html#req.body">post</a> params, <a href="http://www.senchalabs.org/connect/basicAuth.html">Auth</a>, <a href="http://www.senchalabs.org/connect/static.html">Static pages</a>, <a href="http://expressjs.com/api.html#req.files">File uploads</a> and <a href="http://expressjs.com/api.html#res.attachment">downloads</a><a href="http://expressjs.com/api.html#res.sendfile">*</a>, <a href="http://expressjs.com/api.html#req.cookies">Cookie parsing</a>, <a href="http://www.senchalabs.org/connect/session.html">Session support</a>, <a href="http://www.senchalabs.org/connect/compress.html">Compression</a>, <a href="http://expressjs.com/guide.html#users-online">Custom</a>, and <a href="http://www.senchalabs.org/connect/">more</a>
+                    </li>
+                    <li>
+                    More: <a href="http://expressjs.com/api.html#app.listen">https</a>, forms processing, jsonp wrapper, Headers, ...
+                    </li>
+            </div>
+          </section>
+        </div>
+
+
+
+
+        <div class="slide styling" id="expressapp2">
+            <style>
+                #expressapp2 h1 {
+                    font-size: 2.5em;
+                }
+                #expressapp2 .middle>* {
+                    margin-bottom:300px;
+                }
+                #expressapp2 .left{
+                    margin-left: 200px;
+                    text-align: left;
+                    font-size: 1.9em;
+                    line-height: 2.2em;
+                }
+                #expressapp2 pre {
+                    padding-top:0px;
+                    font-size:0.8em;
+                    line-height:1.2em;
+                    margin: 30px 0;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                <a href="http://expressjs.com">express</a> - Cont'd
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+<br />
+                <pre>
+    var express = require('express');
+    var app = express();
+    app.get('/', function (req, res) {
+        res.send('Hello World');
+    });
+    app.listen(3000);
+    console.log('Listening on port 3000');
+                </pre>
+                <ul>
+                    <li>
+                        express.js
+                    </li>
+                    <li>
+                        after "npm_install express", <br>will have node_modules/express/.........
+                    </li>
+                </ul>
+            </div>
+          </section>
+        </div>
+
+
+
+
+        <div class="slide styling" id="databases">
+            <style>
+                #databases h1 {
+                    font-size: 2.0em;
+                    padding-bottom: 30px;
+                }
+                #databases .middle>* {
+                    margin-bottom:300px;
+                }
+                #databases code {
+                    display:block;
+                    font-size: 0.76em;
+                    line-height: 1.0em;
+                }
+                #databases .left{
+                    margin-left: 200px;
+                    text-align: left;
+                    font-size: 1.6em;
+                    line-height: 1.8em;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                Using Databases
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+                <ul>
+                    <li>
+                    Install mysql (<a href="http://dev.mysql.com/doc/refman/5.0/en/macosx-installation.html">long guide</a> or <a href="https://gist.github.com/2722782">short one</a>)
+                    </li>
+                    <li>
+                    Administer DB
+                    </li>
+                    <li>
+                    Install <a href="https://github.com/felixge/node-mysql">node-mysql</a> module
+                    </li>
+                </ul>
+                <code>
+                    var express = require('express');
+                    <br>
+                    var mysql = require("mysql");
+                    <br>
+                    <br>
+                    // Creates the connection
+                    <br>
+                    var dbConn = mysql.createClient({
+                    <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;user: "root",
+                    <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;password: "",
+                    <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;database: "mydb"
+                    <br>
+                    });
+                    <br>
+
+                    <br>
+                    var app = express();
+                    <br>
+
+                    <br>
+                    app.get('/', function(request, response) {
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;    // Queries the database
+                    <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;dbConn.query('SELECT * from employees where salary&gt;?', [60000], function(err, results) {
+                    <br>
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   // Send data as JSON string.
+                    <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  response.send(results);
+                    <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;});
+                    <br>
+                    });
+                    <br>
+
+                    <br>
+                    console.log('server listening on port 8080');
+                    <br>
+                    app.listen(8080);
+                </code>
+                <ul>
+                    <li>
+                    Similar for <a href="https://npmjs.org/package/node-sqlserver">MS-SQL</a> (ugh, anyone?), <a href="https://github.com/mongodb/node-mongodb-native">mongodb</a><a href="https://github.com/LearnBoost/mongoose">*</a>, <a href="https://github.com/felixge/node-couchdb">couchdb</a>, and <a href="https://github.com/mranney/node_redis">redis</a>
+                    </li>
+                </ul>
+            </div>
+          </section>
+        </div>
+
+
+
+
+
+        <div class="slide styling" id="socketio">
+            <style>
+                #socketio h1 {
+                    font-size: 2.0em;
+                    padding-bottom: 30px;
+                }
+                #socketio .middle>* {
+                    margin-bottom:300px;
+                }
+                #socketio code {
+                    margin-top: 40px;
+                    display:block;
+                    font-size: 0.76em;
+                    line-height: 1.1em;
+                }
+                #socketio .left{
+                    margin-left: 200px;
+                    text-align: left;
+                    font-size: 1.6em;
+                    line-height: 1.8em;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                Socket.IO
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+                <ul>
+                    <li>
+                    Install <a href="http://socket.io/#how-to-use">socket.io</a>
+                    </li>
+                </ul>
+                <code>
+var express = require('express');
+<br>
+var app = express();
+<br>
+
+<br>
+app.use(express.static(__dirname + '/..'));
+<br>
+
+<br>
+var server = app.listen(8080);
+<br>
+console.log('Server listening on port 8080');
+<br>
+
+<br>
+var io = require('socket.io').listen(server);
+<br>
+
+<br>
+var manager = null;
+<br>
+io.sockets.on('connection', function (socket) {
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;    socket.on('manager', function (data) {
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if (data.password === '642914') {
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            manager = socket;
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        }
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;    });
+<br>
+
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;    socket.on('slideChanged', function (data) {
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        var slideIndex = data.slideIndex;
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if (socket === manager) {
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            socket.broadcast.emit('moveToSlide', {slideIndex: slideIndex});
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        }
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;    });
+<br>
+});
+                </code>
+            </div>
+          </section>
+        </div>
+        
+
+
+        <div class="slide styling" id="socketio2">
+            <style>
+                #socketio2 h1 {
+                    font-size: 2.0em;
+                    padding-bottom: 30px;
+                }
+                #socketio2 .middle>* {
+                    margin-bottom:300px;
+                }
+                #socketio2 code {
+                    margin-top: 40px;
+                    display:block;
+                    font-size: 0.63em;
+                    font-weight: bold;
+                    line-height: 1.57em;
+                }
+                #socketio2 .left{
+                    margin-left: 200px;
+                    text-align: left;
+                    font-size: 1.6em;
+                    line-height: 1.8em;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                Socket.IO - Cont'd
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+                <ul>
+                    <li>
+                    Then set up client code:
+                    </li>
+                </ul>
+                <code>
+                    &lt;script src="http://127.0.0.1:8080/socket.io/socket.io.js"&gt;&lt;/script&gt;
+                    <br>
+                    <br>
+                    &lt;script type="text/javascript"&gt;
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;                        var socket = io.connect('http://127.0.0.1:8080');
+                    <br>
+
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;                        socket.on('connect', function() {
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                            document.getElementById('nav-control').addEventListener('click', function() {
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                var password = window.prompt('Enter password to control the presentation');
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                socket.emit('manager', {password: password});
+                    <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                           }, false);
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;                        });
+                    <br>
+
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;                        var slideChanged = function(index) {
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                            socket.emit('slideChanged', {slideIndex: index});
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;                        }
+                    <br>
+
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;                        socket.on('moveToSlide', function (data) {
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                            window.slideshow.current = Math.min(data.slideIndex, slideshow._slides.length);
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                            window.slideshow._update();
+                    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;                        });
+                    <br>
+                    &lt;/script&gt;
+                </code>
+            </div>
+          </section>
+        </div>
+        
+        
+        <div class="slide styling" id="api">
+            <style>
+                #api h1 {
+                    font-size: 2.0em;
+                    padding-bottom: 30px;
+                }
+                #api .middle>* {
+                    margin-bottom:300px;
+                }
+                #api code {
+                    margin-top: 40px;
+                    display:block;
+                    font-size: 0.76em;
+                    line-height: 1.0em;
+                }
+                #api pre {
+                    padding-top:0px;
+                    font-size:0.7em;
+                    line-height:0.98em;
+                    margin: 30px 0;
+                }
+                #api .left{
+                    margin-left: 200px;
+                    text-align: left;
+                    font-size: 1.6em;
+                    line-height: 1.8em;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                Using an API
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+                <ul>
+                    <li>
+                        Example: <a href="http://www.twilio.com/docs/api/rest">Twilio</a> - <a href="http://www.twilio.com/docs/api/rest/sending-sms">Sending text</a>
+                    </li>
+                    <li>
+                        How to grab params from CLI? <a href="http://nodejs.org/api/process.html#process_process_argv">process.argv</a>
+                    </li>
+                    <li>
+                        We'll use a module to send POST params, auth: <a href="https://github.com/mikeal/request">request</a>
+                    </li>
+                </ul>
+                <pre>
+var request = require('request');
+
+var auth = 'ACb6aba5852a93667ce3545d28fe8c98cf:********************************';
+
+var data = {
+    'From': '+13474915748',
+    'To': '+13473462425',
+    'Body' : process.argv[2]
+}
+console.log(data);
+
+var url = 'https://' + auth + '@api.twilio.com:443';
+url += '/2010-04-01/Accounts/ACb6aba5852a93667ce3545d28fe8c98cf/SMS/Messages.json';
+
+var processData = function (e, r, body) {
+    console.log(body);
+    console.log('done.');
+};
+
+request.post({url: url, form: data, headers: {auth: auth} }, processData);
+console.log('Msg send. Receiving...');
+                </pre>
+                <ul>
+                    <li>
+Twilio, like others, did most of the <a href="https://npmjs.org/package/twilio">js work</a> for us
+                    </li>
+                </ul>
+            </div>
+          </section>
+        </div>
+
+
+
+
+        <div class="slide styling" id="apis">
+            <style>
+                #apis h1 {
+                    font-size: 2.0em;
+                    padding-bottom: 30px;
+                }
+                #apis .middle>* {
+                    margin-bottom:300px;
+                }
+                #apis code {
+                    margin-top: 40px;
+                    display:block;
+                    font-size: 0.76em;
+                    line-height: 1.0em;
+                }
+                #apis .left{
+                    margin-left: 200px;
+                    text-align: left;
+                    font-size: 1.6em;
+                    line-height: 2.0em;
+                }
+                #apis li {
+                    padding-bottom:20px;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                Interesting APIs
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+                <ul class="long-list">
+                    <li>
+                    APIs: <a href="https://developers.facebook.com/docs/reference/api/">Facebook</a>, <a href="https://developer.foursquare.com/overview/">foursquare</a>, <a href="https://dev.twitter.com/docs">Twitter</a>, <a href="http://www.yelp.com/developers/documentation/v2/search_api">Yelp</a>, <a href="http://developer.netflix.com/docs/REST_API_Conventions">Netflix</a>, <a href="http://api.stackoverflow.com/1.0/usage">StackOverflow</a>, <a href="http://flightaware.com/commercial/flightxml/">FlightAware</a>, <a href="https://trello.com/docs/">Trello</a>, Spam detection using <a href="http://akismet.com/development/api/">Akismet</a>, URL shortening using <a href="http://dev.bitly.com/">bit.ly</a>, Storage using <a href="http://docs.amazonwebservices.com/AmazonS3/latest/API/APIRest.html">Amazon S3</a>, <a href="http://www.mediawiki.org/wiki/API">Wikipedia</a>
+                    </li>
+                    <li>
+                    <a href="https://code.google.com/apis/console/">Google</a> APIs: Search, Maps, Places, Prediction, Street View, YouTube, BigQuery, Books, Hangouts, Latitude, PageSpeed, Translate, ...
+                    </li>
+                    <li>
+                    <a href="http://developer.nytimes.com/docs/">NYTimes</a> APIs: Article Search, Best Sellers, Campaign Finance, Community, Congress, Districts, Event Listings, Geographic, Most Popular, Movie Reviews, NYS Legislature, Real Estate, Semantic, Newswire, TimesTag
+                    </li>
+                    <li>
+                    <a href="http://developer.yahoo.com/everything.html">Yahoo</a> APIs: Answers, Finance, Flickr, Weather, etc.
+                    </li>
+                    <li>
+                    Call, text, conference via <a href="http://www.twilio.com/docs/api/rest">Twilio</a>
+                    </li>
+                </ul>
+            </div>
+          </section>
+        </div>
+
+
+
+
+
+        <div class="slide styling" id="next">
+            <style>
+                #next h1 {
+                    font-size: 2.0em;
+                    padding-bottom: 30px;
+                }
+                #next .middle>* {
+                    margin-bottom:300px;
+                }
+                #next span {
+                    display:inline-block;
+                }
+                #next pre {
+                    display:inline-block;
+                    font-size: 0.86em;
+                    line-height: 1.1em;
+                }
+                #next .code {
+                    font-size: 0.76em;
+                    line-height: 0.8em;
+                    width:490px;
+                }
+                #next .left{
+                    margin-left: 100px;
+                    text-align: left;
+                    font-size: 1.4em;
+                    line-height: 1.5em;
+                }
+                #next ul {
+                    display:inline-block;
+                    vertical-align:top;
+                }
+                #next img.right {
+                    height:430px;
+                    border: 1px black solid;
+                    margin-left:50px;
+                }
+                #next li {
+                    padding-bottom:20px;
+                }
+            </style>
+          <section class="top">
+            <h1>
+                Coding in JavaScript
+            </h1>
+          </section>
+          <section class="middle">
+            <div class="left">
+                <ul class="long-list">
+                    <li>
+                        Dynamic sites
+                    </li>
+                    <li>
+                        Front-end webapps
+                    </li>
+                    <li>
+                        Server-side using node.js
+                    </li>
+                    <li>
+                        Embedded Devices: <a href="http://semu.github.com/noduino/">Arduino</a>, <a href="http://blog.tomg.co/post/21322413373/how-to-install-node-js-on-your-raspberry-pi">Raspberry Pi</a>
+                    </li>
+                </ul>
+                <img src="images/arduino.jpg" class="right"><br />
+                <span style="position: relative; left:-80px; top:-100px;">
+                <img src="images/raspberry_pi.jpg" style="height:430px; border: 1px black solid">
+                </span><span class="code">
+                <pre style="position: relative; left:0px; top:-100px;">
+var Noduino = newNoduinoObj({
+    debug:true,
+    host:'http://localhost:8090'
+},Connector);
+
+Noduino.connect( function (err, board) {
+    if(err){return console.log(err);}
+    board.withButton( {pin:13}, function (err,Button) {
+        if(err){return console.log(err);}
+
+        Button.on('push',function() {
+            console.log('Button pushed');
+        });
+        Button.push();
+    });
+});
+</pre>
+                </span>
+            </div>
+          </section>
+        </div>
+        
+
+
+        <div class="slide styling" id="fin">
+            <style>
+                #fin h1 {
+                    font-size:3.5em;
+                    padding-top:300px;
+                    padding-bottom: 100px/*200px*/;
+                }
+                #fin h2 {
+                    font-size:1.6em;
+                    padding-bottom: 100px;
+                    text-align: left;
+                    margin-left:400px;
+                }
+                #fin ul.thanks {
+                    display:block;
+                    list-style-type: circle;
+                }
+                #fin ul.thanks li {
+                    margin-left: 100px;
+                    font-size: 0.9em;
+                }
+                #fin ul li {
+                    text-align:center;
+                    font-size: 1.7em;
+                }
+                #fin ul li.same-line {
+                    display: inline-block;
+                }
+                #fin ul li.same-line>* {
+                    display:inline-block;
+                    vertical-align: bottom;
+                }
+                #fin ul li img{
+                    margin-right: 20px;
+                }
+                #fin .applause{
+                    font-size: 0.8em;
+                    display:block;
+                    line-height:1.9em;
+                }
+            </style>
+          <section class="middle">
+            <h1>
+                Fin.
+                <br><br>
+                Thank you :-)<br><br>
+                <span class="applause">You can clap now!</a>
+            </h1>
+            <!--
+            <h2>
+                Thanks to: <br>
+                <ul class="thanks">
+                    <li>
+                        Google for HTML5Slides
+                    </li>
+                </ul>
+            </h2>-->
+            <ul class="content">
+                <li class="same-line" style="text-align: center; padding-bottom:60px;"><a href="http://slidesha.re/RQ0j8K">http://slidesha.re/RQ0j8K</a></li>
+                <li class="same-line" style="margin-left:150px;margin-right:100px;text-align: center; padding-bottom:60px;"><img style="padding-right:10px; width:50px;" src="images/zip.png"><a href="http://bit.ly/RQ011E">http://bit.ly/RQ011E</a></li>
+            </ul>
+            <ul>
+                <li class="same-line" style="margin-right: 200px;"><div style="height:60px; width:60px; background-image: url('images/twitter.png'); background-size: 60px 60px; background-position: 0 10px; margin-right: 7px;"></div><a href="https://twitter.com/myok12">@myok12</a></li>
+                <li class="same-line"><div style="height:60px; width:60px; background-image: url('images/speaker.png'); background-size: 60px 60px; background-position: 0 10px; margin-right: 15px;"></div><a href="http://spkr8.com/myok12">http://spkr8.com/myok12</a></li>
+            </ul>
+
+          </section>
+        </div>
+
+      </div> <!-- slides -->
+
+    </div> <!-- presentation -->
+
+    <script>
+      (function() {
+        var doc = document;
+        var disableBuilds = true;
+
+        var ctr = 0;
+        var spaces = /\s+/, a1 = [''];
+
+        var toArray = function(list) {
+          return Array.prototype.slice.call(list || [], 0);
+        };
+
+        var byId = function(id) {
+          if (typeof id == 'string') { return doc.getElementById(id); }
+          return id;
+        };
+
+        var query = function(query, root) {
+          if (!query) { return []; }
+          if (typeof query != 'string') { return toArray(query); }
+          if (typeof root == 'string') {
+            root = byId(root);
+            if(!root){ return []; }
+          }
+
+          root = root || document;
+          var rootIsDoc = (root.nodeType == 9);
+          var doc = rootIsDoc ? root : (root.ownerDocument || document);
+
+          // rewrite the query to be ID rooted
+          if (!rootIsDoc || ('>~+'.indexOf(query.charAt(0)) >= 0)) {
+            root.id = root.id || ('qUnique' + (ctr++));
+            query = '#' + root.id + ' ' + query;
+          }
+          // don't choke on something like ".yada.yada >"
+          if ('>~+'.indexOf(query.slice(-1)) >= 0) { query += ' *'; }
+
+          return toArray(doc.querySelectorAll(query));
+        };
+
+        var strToArray = function(s) {
+          if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+              a1[0] = s;
+              return a1;
+            } else {
+              return s.split(spaces);
+            }
+          }
+          return s;
+        };
+
+        var addClass = function(node, classStr) {
+          classStr = strToArray(classStr);
+          var cls = ' ' + node.className + ' ';
+          for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+              cls += c + ' ';
+            }
+          }
+          node.className = cls.trim();
+        };
+
+        var removeClass = function(node, classStr) {
+          var cls;
+          if (classStr !== undefined) {
+            classStr = strToArray(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+              cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = cls.trim();
+          } else {
+            cls = '';
+          }
+          if (node.className != cls) {
+            node.className = cls;
+          }
+        };
+
+        var toggleClass = function(node, classStr) {
+          var cls = ' ' + node.className + ' ';
+          if (cls.indexOf(' ' + classStr.trim() + ' ') >= 0) {
+            removeClass(node, classStr);
+          } else {
+            addClass(node, classStr);
+          }
+        };
+
+        var ua = navigator.userAgent;
+        var isFF = parseFloat(ua.split('Firefox/')[1]) || undefined;
+        var isWK = parseFloat(ua.split('WebKit/')[1]) || undefined;
+        var isOpera = parseFloat(ua.split('Opera/')[1]) || undefined;
+
+        var canTransition = (function() {
+          var ver = parseFloat(ua.split('Version/')[1]) || undefined;
+          // test to determine if this browser can handle CSS transitions.
+          var cachedCanTransition =
+            (isWK || (isFF && isFF > 3.6 ) || (isOpera && ver >= 10.5));
+          return function() { return cachedCanTransition; }
+        })();
+
+        //
+        // Slide class
+        //
+        var Slide = function(node, idx) {
+          this._node = node;
+          if (idx >= 0) {
+            this._count = idx + 1;
+          }
+          if (this._node) {
+            addClass(this._node, 'slide distant-slide');
+          }
+          this._makeCounter();
+          this._makeBuildList();
+        };
+
+        Slide.prototype = {
+          _node: null,
+          _count: 0,
+          _buildList: [],
+          _visited: false,
+          _currentState: '',
+          _states: [ 'distant-slide', 'far-past',
+                     'past', 'current', 'future',
+                     'far-future', 'distant-slide' ],
+          setState: function(state) {
+            if (typeof state != 'string') {
+              state = this._states[state];
+            }
+            if (state == 'current' && !this._visited) {
+              this._visited = true;
+              this._makeBuildList();
+            }
+            removeClass(this._node, this._states);
+            addClass(this._node, state);
+            if (state === 'distant-slide') {
+            /*
+                Array.prototype.forEach.call(this._node.querySelectorAll('*[src]'),function(el) {
+                    alert('v->h' + el.src);
+                    el.dataset.src = el.src;
+                    el.src = '';
+                    alert('v->h' + el.dataset.src);
+                });
+            */
+                this._node.style.visibility='hidden';
+            } else {
+            /*
+                Array.prototype.forEach.call(this._node.querySelectorAll('*[data-src]'),function(el) {
+                    alert('h->v' + el.dataset.src);
+                    el.src = el.dataset.src;
+                    el.dataset.src = '';
+                    alert('h->v' + el.src);
+                });
+            */
+                this._node.style.visibility='visible';
+            }
+            this._currentState = state;
+
+            // delay first auto run. Really wish this were in CSS.
+            /*
+            this._runAutos();
+            */
+            var _t = this;
+            setTimeout(function(){ _t._runAutos(); } , 400);
+          },
+          _makeCounter: function() {
+            if(!this._count || !this._node) { return; }
+            var c = doc.createElement('span');
+            c.innerHTML = this._count;
+            c.className = 'counter';
+            this._node.appendChild(c);
+          },
+          _makeBuildList: function() {
+            this._buildList = [];
+            if (disableBuilds) { return; }
+            if (this._node) {
+              this._buildList = document.querySelectorAll('[data-build] > *', this._node);
+            }
+            console.log(this._buildList);
+            this._buildList.forEach(function(el) {
+              addClass(el, 'to-build');
+            });
+          },
+          _runAutos: function() {
+            if (this._currentState != 'current') {
+              return;
+            }
+            // find the next auto, slice it out of the list, and run it
+            var idx = -1;
+            this._buildList.some(function(n, i) {
+              if (n.hasAttribute('data-auto')) {
+                idx = i;
+                return true;
+              }
+              return false;
+            });
+            if (idx >= 0) {
+              var elem = this._buildList.splice(idx, 1)[0];
+              var transitionEnd = isWK ? 'webkitTransitionEnd' : (isFF ? 'mozTransitionEnd' : 'oTransitionEnd');
+              var _t = this;
+              if (canTransition()) {
+                var l = function(evt) {
+                  elem.parentNode.removeEventListener(transitionEnd, l, false);
+                  _t._runAutos();
+                };
+                elem.parentNode.addEventListener(transitionEnd, l, false);
+                removeClass(elem, 'to-build');
+              } else {
+                setTimeout(function() {
+                  removeClass(elem, 'to-build');
+                  _t._runAutos();
+                }, 400);
+              }
+            }
+          },
+          buildNext: function() {
+            if (!this._buildList.length) {
+              return false;
+            }
+            removeClass(this._buildList.shift(), 'to-build');
+            return true;
+          },
+        };
+
+        //
+        // SlideShow class
+        //
+        var SlideShow = function(slides) {
+          this._slides = (slides || []).map(function(el, idx) {
+            return new Slide(el, idx);
+          });
+
+          var h = window.location.hash;
+          try {
+            this.current = parseInt(h.split('#slide')[1], 10);
+          }catch (e) { /* squeltch */ }
+          this.current = isNaN(this.current) ? 1 : this.current;
+          var _t = this;
+          doc.addEventListener('keydown',
+              function(e) { _t.handleKeys(e); }, false);
+          doc.addEventListener('mousewheel',
+              function(e) { _t.handleWheel(e); }, false);
+          doc.addEventListener('DOMMouseScroll',
+              function(e) { _t.handleWheel(e); }, false);
+          doc.addEventListener('touchstart',
+              function(e) { _t.handleTouchStart(e); }, false);
+          doc.addEventListener('touchend',
+              function(e) { _t.handleTouchEnd(e); }, false);
+          window.addEventListener('popstate',
+          function(e) { if (e.state!==null) { _t.go(e.state); }}, false);
+          this._update();         
+            query('#nav-prev, #nav-next').forEach(function(el) {
+              el.addEventListener('click', _t.onNavClick.bind(_t), false);
+            });
+            query('menu button').forEach(function(el) {
+              el.addEventListener('click', _t.onCommandClick.bind(_t), false);
+            });
+        };
+
+        SlideShow.prototype = {
+          _slides: [],
+          _update: function(dontPush) {
+           
+            // catch to set things right on the initial load. popstate fires on pageload.
+            if (this.current === null) return;
+           
+            document.querySelector('#presentation-counter').innerText = this.current;
+            document.querySelector('#slide-no').innerText = this.current;
+            if (history.pushState) {
+              if (!dontPush) {
+                history.pushState(this.current, 'Slide ' + this.current, '#slide' + this.current);
+              }
+            } else {
+              window.location.hash = 'slide' + this.current;
+            }
+
+            slideChanged(this.current);
+            for (var x = this.current-1; x < this.current + 7; x++) {
+              if (this._slides[x-4]) {
+                this._slides[x-4].setState(Math.max(0, x-this.current));
+              }
+            }
+          },
+
+          current: 0,
+          next: function() {
+            if (!this._slides[this.current-1].buildNext()) {
+              this.current = Math.min(this.current + 1, this._slides.length);
+              this._update();
+            }
+          },
+          prev: function() {
+            this.current = Math.max(this.current-1, 1);
+            this._update();
+          },
+          go: function(num) {
+            if (history.pushState && this.current != num) {
+              history.replaceState(this.current, 'Slide ' + this.current, '#slide' + this.current);
+            }
+            this.current = num;
+            this._update(true);
+          },
+
+          _notesOn: false,
+          showNotes: function() {
+            var isOn = this._notesOn = !this._notesOn;
+            query('.notes').forEach(function(el) {
+              el.style.display = (notesOn) ? 'block' : 'none';
+            });
+          },
+          switch3D: function() {
+            toggleClass(document.body, 'three-d');
+          },
+          handleWheel: function(e) {
+            var delta = 0;
+            if (e.wheelDelta) {
+              delta = e.wheelDelta/120;
+              if (isOpera) {
+                delta = -delta;
+              }
+            } else if (e.detail) {
+              delta = -e.detail/3;
+            }
+
+            if (delta > 0 ) {
+              this.prev();
+              return;
+            }
+            if (delta < 0 ) {
+              this.next();
+              return;
+            }
+          },
+          handleKeys: function(e) {
+            if (/^(input|textarea)$/i.test(e.target.nodeName) ||
+                e.target.isContentEditable) {
+              return;
+            }
+            switch (e.keyCode) {
+              case 37: // left arrow
+                this.prev(); break;
+              case 39: // right arrow
+              case 32: // space
+                this.next(); break;
+              case 50: // 2
+                this.showNotes(); break;
+              case 51: // 3
+                this.switch3D(); break;
+            }
+          },
+          _touchStartX: 0,
+          handleTouchStart: function(e) {
+            this._touchStartX = e.touches[0].pageX;
+          },
+          handleTouchEnd: function(e) {
+            var delta = this._touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (delta > SWIPE_SIZE) {
+              this.next();
+            } else if (delta< -SWIPE_SIZE) {
+              this.prev();
+            }
+          },
+
+            _help: query('#help'),
+            toggleHelp: function() {
+              this._help.style.display = "block";
+              this._help.classList.toggle('invisible');
+              },
+            onNavClick: function(e) {
+              if (e.target.id == "nav-prev") {
+                this.prev();
+              } else if (e.target.id = "nav-next") {
+                this.next();
+              }
+            },
+            onCommandClick: function(e) {
+              var n = e.target.getAttribute('data-command');
+              switch(n) {
+              case 'toc':
+                this._update("table-of-contents"); break;
+              case 'resources':
+                break;
+              case 'notes':
+                this.showNotes(); break;
+              case 'source':
+                this.viewSource(); break;
+              case 'help':
+                this.toggleHelp(); break;
+              default:
+                return;
+              }
+            }
+        };
+
+        // Initialize
+        var slideshow = new SlideShow(query('.slide'));
+        window.slideshow=slideshow;
+
+        /*
+        document.querySelector('#toggle-counter').addEventListener('click', toggleCounter, false);
+        document.querySelector('#toggle-size').addEventListener('click', toggleSize, false);
+        document.querySelector('#toggle-transitions').addEventListener('click', toggleTransitions, false);
+        document.querySelector('#toggle-gradients').addEventListener('click', toggleGradients, false);
+*/
+        var counters = document.querySelectorAll('.counter');
+        var slides = document.querySelectorAll('.slide');
+
+        function toggleCounter() {
+          toArray(counters).forEach(function(el) {
+            el.style.display = (el.offsetHeight) ? 'none' : 'block';
+          });
+        }
+       
+        function toggleSize() {
+          toArray(slides).forEach(function(el) {
+            if (!/reduced/.test(el.className)) {
+              addClass(el, 'reduced');
+            }
+            else {
+              removeClass(el, 'reduced');
+            }
+          });
+        }
+
+        function toggleTransitions() {
+          toArray(slides).forEach(function(el) {
+            if (!/no-transitions/.test(el.className)) {
+              addClass(el, 'no-transitions');
+            }
+            else {
+              removeClass(el, 'no-transitions');
+            }
+          });
+        }
+       
+        function toggleGradients() {
+          toArray(slides).forEach(function(el) {
+            if (!/no-gradients/.test(el.className)) {
+              addClass(el, 'no-gradients');
+            }
+            else {
+              removeClass(el, 'no-gradients');
+            }
+          });
+        }
+        
+      })();
+
+
+
+
+
+    </script>
+
+    <!--[if lt IE 9]>
+    <script
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
+    </script>
+    <script>CFInstall.check({ mode: "overlay" });</script>
+    <![endif]-->
+   
+  
+</body></html>
