@@ -6,7 +6,7 @@ Presented at PennApps 2012 and 2013.
 
 ## View The Presentation
 
-If all you want is to check out the presentation, you can preview it at [slideshare](www.slideshare.net/myok12/nodejs-for-hackathons).
+If all you want is to check out the presentation, you can preview it at [slideshare](http://www.slideshare.net/myok12/nodejs-for-hackathons).
 
 If you cloned the repo, you can see the presentation by simply opening _Presentation.html_ in your browser.
 
