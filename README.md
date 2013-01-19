@@ -6,12 +6,14 @@ Presented at PennApps 2012 and 2013.
 
 ## View The Presentation
 
-To see the presentation, simply open _Presentation.html_ in your browser
+If all you want is to check out the presentation, you can preview it at [slideshare](www.slideshare.net/myok12/nodejs-for-hackathons).
 
-However, the presentation is using some of the example to set up a
-socket.io server to sync the presenter with the viewers. For that,
+If you cloned the repo, you can see the presentation by simply opening _Presentation.html_ in your browser.
+
+However, the presentation is using some of the example code to set up a
+[socket.io](http://socket.io/) server to sync the presenter with the viewers. For that,
 follow the installation instructions, then run `node socketio.js` within the
-_examples_ folder, then connect to it using
+_examples_ folder, then connect to it from your browser using
 [http://localhost:8080/Presentation.html](http://localhost:8080/Presentation.html)
 
 ## Installation
